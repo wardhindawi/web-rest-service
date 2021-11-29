@@ -8,5 +8,9 @@
   	<module>server-rest-example</module>
   	<module>server-rest-example-2</module>
   	<module>weblogic-11g-webservice</module>
+  	<module>ics-bootcamp-service</module>
+  	<module>ics-bootcamp-controller</module>
+  	<module>ics-bootcamp-Api</module>
+  	<module>ics-bootcamp-api</module>
   </modules>
 </project>
