@@ -28,7 +28,7 @@ public class PersonService {
         }
     }
 
-   public Map<Integer, Person>  getAllPersons() {
+    public Map<Integer, Person> getAllPersons() {
 
         return repository.getPersons();
 
@@ -38,20 +38,20 @@ public class PersonService {
         Person person = new Person();
         person.setId(personId);
         person = repository.getPerson(person);
-        if (person == null) 
-            throw new DataNotFoundException("Insurance with id " + personId +" not found");
-        
+        if (person == null) {
+            throw new DataNotFoundException("Insurance with id " + personId + " not found");
+        }
+
         return person;
     }
-    
 
     public Person addPerson(Person person) throws ParseException {
         return repository.addPerson(person);
     }
 
     public void deletePerson(int personId) {
-    	Person person = new Person();
-    	person.setId(personId);
+        Person person = new Person();
+        person.setId(personId);
         repository.deletePerson(person);
 
     }
@@ -61,9 +61,9 @@ public class PersonService {
         if (tempPerson == null) {
             throw new DataNotFoundException("Insurance with id " + person.getId() + " not found");
         }
-        person.setInsurances(tempPerson.getInsurances());
-        person.setJoinedDate(tempPerson.getJoinedDate());
-       // person.setLinks(tempPerson.getLinks());
+        person.getInsurances();
+        person.setJoinedDate(person.getJoinedDate());
+        // person.setLinks(tempPerson.getLinks());
         return repository.updatePerson(person);
 
     }

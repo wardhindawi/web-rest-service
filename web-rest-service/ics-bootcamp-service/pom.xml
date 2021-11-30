@@ -1,58 +1,30 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>web-rest-service</groupId>
-    <artifactId>web-rest-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <artifactId>ics-bootcamp-service</artifactId>
-  <packaging>war</packaging>
-	<properties>
-		<oracle-jdbc-version>19c-java8</oracle-jdbc-version>
-		<jersey.version>2.17</jersey.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
-	<build>
-		<finalName>RESTfulWebServicesSample</finalName>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.5.1</version>
-				<inherited>true</inherited>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-			<plugin>
-	            <groupId>org.apache.maven.plugins</groupId>
-	            <artifactId>maven-war-plugin</artifactId>
-	            <version>2.6</version>
-	            <configuration>
-	            	<failOnMissingWebXml>false</failOnMissingWebXml>
-	            </configuration>
-        </plugin>
-		</plugins>
-	</build>
-
-
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>web-rest-service</groupId>
+		<artifactId>web-rest-service</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>ics-bootcamp-service</artifactId>
+	<packaging>jar</packaging>
 	<dependencies>
-
-
 		<dependency>
-			<groupId>oracle</groupId> 
-			<artifactId>jdbc</artifactId>
-			<version>${oracle-jdbc-version}</version>
+    		<groupId>web-rest-service</groupId>
+    		<artifactId>ics-bootcamp-repository</artifactId>
+    		<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		<!-- It contains classes for NLS support in Oracle Object and Collection 
-			types. -->
 		<dependency>
-			<groupId>oracle</groupId>
-			<artifactId>orai18n</artifactId>
-			<version>${oracle-jdbc-version}</version>
+    		<groupId>web-rest-service</groupId>
+    		<artifactId>ics-bootcamp-api</artifactId>
+    		<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 </project>

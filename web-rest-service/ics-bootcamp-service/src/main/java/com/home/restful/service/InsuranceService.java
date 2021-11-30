@@ -30,12 +30,13 @@ public class InsuranceService {
     }
 
     public Insurance getInsurance(int Insuranceid) {
-    	Insurance insurance = new Insurance();
-    	insurance.setId(Insuranceid);
+        Insurance insurance = new Insurance();
+        insurance.setId(Insuranceid);
         insurance = repository.getInsurances(insurance);
-        if (insurance == null) 
-            throw new DataNotFoundException("Insurance with id " + Insuranceid +" not found");
-        
+        if (insurance == null) {
+            throw new DataNotFoundException("Insurance with id " + Insuranceid + " not found");
+        }
+
         return insurance;
     }
 
@@ -44,19 +45,19 @@ public class InsuranceService {
     }
 
     public void deleteInsurance(int insuranceId) {
-    	Insurance insurance = new Insurance();
-    	insurance.setId(insuranceId);
+        Insurance insurance = new Insurance();
+        insurance.setId(insuranceId);
         repository.deleteInsurance(insurance);
 
     }
 
     public Insurance updateInsurance(int personId, Insurance insurance) throws ParseException {
-    	Person person = new Person();
-    	person.setId(personId);
+        Person person = new Person();
+        person.setId(personId);
         Person tempPerson = new PersonRepository().getPerson(person);
-        if (tempPerson != null && tempPerson.getInsurances().get(insurance.getId()) != null) {
-            Insurance tempInsurance = tempPerson.getInsurances().get(insurance.getId());
-            insurance.setCreatedDate(tempInsurance.getCreatedDate());
+        if (tempPerson != null /* && tempPerson.getInsurances().get(insurance.getId()) != null */) {
+            // Insurance tempInsurance = tempPerson.getInsurances().get(insurance.getId());
+            // insurance.setCreatedDate(tempInsurance.getCreatedDate());
             return repository.updateInsurance(personId, insurance);
         } else {
             throw new DataNotFoundException("Person with id " + tempPerson.getId() + " not found");
