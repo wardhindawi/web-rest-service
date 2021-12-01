@@ -17,7 +17,7 @@ public class restServicePostPerson {
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
 
-            String input = "{\"id\":100,\"firstName\":'Dina'\"lastName\":'Khader'\"createdDate\":20/02/2020 }";
+            String input = "{\"id\":100,\"firstName\":\"dina\",\"lastName\":\"Khader\",\"joinedDate\":20/02/2020 }";
 
             OutputStream os = conn.getOutputStream();
             os.write(input.getBytes());
