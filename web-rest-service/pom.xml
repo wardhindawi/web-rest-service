@@ -13,6 +13,8 @@
 		<module>ics-bootcamp-api</module>
 		<module>ics-bootcamp-repository</module>
 		<module>ics-bootcamp-model</module>
+		<module>proxy</module>
+		<module>proxy-webservice</module>
 	</modules>
 	<properties>
 		<oracle-jdbc-version>19c-java8</oracle-jdbc-version>
