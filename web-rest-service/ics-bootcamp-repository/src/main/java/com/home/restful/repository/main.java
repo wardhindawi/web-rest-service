@@ -1,26 +1,22 @@
 package com.home.restful.repository;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import com.home.restful.entity.Person;
+import com.home.restful.entity.Insurance;
 
 public class main {
 
     public static void main(String[] args) throws ParseException {
-        PersonRepository personRep = new PersonRepository();
-        Person person = new Person();
+        InsuranceRepository personRep = new InsuranceRepository();
+        Insurance insurance = new Insurance();
 
-        String sDate1 = "11/18/2021";
-        Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);
+        /* String sDate1 = "11/18/2021";
+         * Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(sDate1); */
 
-        person.setId(7);
-        person.setFirstName("lilas");
-        person.setLastName("yacoub");
-        person.setJoinedDate(date1);
-        personRep.updatePerson(person);
-        System.out.println(person.getFirstName() + " " + person.getLastName());
+        insurance.setId(7);
+        insurance.setName("ttttt");
+        personRep.updateInsurance(insurance.getId(), insurance);
+        System.out.println(insurance.getName());
         // person.setFirstName("dina");
         // person.setLastName("ffff");
         // SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");

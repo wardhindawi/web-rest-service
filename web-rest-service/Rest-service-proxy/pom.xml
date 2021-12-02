@@ -6,4 +6,11 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>Rest-service-proxy</artifactId>
+  <dependencies>
+  	<dependency>
+			<groupId>web-rest-service</groupId>
+			<artifactId>ics-bootcamp-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+  </dependencies>
 </project>

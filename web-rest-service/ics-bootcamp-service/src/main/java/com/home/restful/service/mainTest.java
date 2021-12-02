@@ -1,29 +1,31 @@
 package com.home.restful.service;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import com.home.restful.entity.Person;
+import com.home.restful.entity.Insurance;
 
 public class mainTest {
     public static void main(String[] args) throws ParseException {
-        // InsuranceService insRep = new InsuranceService();
-        // Insurance insurance = new Insurance();
-        // Person person = new Person();
-        // PersonService perSer = new PersonService();
-        Person person = new Person();
-        PersonService perSer = new PersonService();
-        /***********************************************/
-        String sDate1 = "11/18/2021";
-        Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);
-        // person.setJoinedDate(date1);
+        InsuranceService insSer = new InsuranceService();
+        Insurance insurance = new Insurance();
 
-        person.setId(7);
-        person.setFirstName("ward");
-        person.setLastName("hindawi");
-        person.setJoinedDate(date1);
-        perSer.updatePerson(person);
+        insurance.setName("pepepepep");
+        System.out.println(insurance);
+
+        System.out.println(insSer.updateInsurance(7, insurance));
+        // PersonService perSer = new PersonService();
+        /* Person person = new Person();
+         * PersonService perSer = new PersonService();
+         * /**********************************************
+         * String sDate1 = "11/18/2021";
+         * Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);
+         * // person.setJoinedDate(date1);
+         *
+         * person.setId(7);
+         * person.setFirstName("ward");
+         * person.setLastName("hindawi");
+         * person.setJoinedDate(date1);
+         * perSer.updatePerson(person); */
         /*****************
          * insRep.addInsurance(insurance.getId(), insurance);
          **************/

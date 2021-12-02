@@ -19,7 +19,6 @@ import oracle.jdbc.driver.OracleDriver;
 public class InsuranceRepository {
 
     String connectString = "jdbc:oracle:thin:@10.100.102.5:1521:hobank";
-    Connection conn = null;
 
     public InsuranceRepository() {
 
@@ -28,12 +27,15 @@ public class InsuranceRepository {
 
     public Map<Integer, Insurance> getInsurance() {
         Map<Integer, Insurance> insuranceResult = new HashMap<>();
+        ResultSet rs = null;
+        PreparedStatement stmnt = null;
+        Connection conn = null;
         try {
             OracleDriver driver = new OracleDriver();
             DriverManager.registerDriver(driver);
             conn = DriverManager.getConnection(connectString, "EEDEV", "EEDEV");
-            PreparedStatement stmnt = conn.prepareStatement("select id , name , createdDate from Insurance");
-            ResultSet rs = stmnt.executeQuery();
+            stmnt = conn.prepareStatement("select id , name , createdDate from Insurance");
+            rs = stmnt.executeQuery();
             InsuranceRepository insuranceRep = new InsuranceRepository();
             Insurance insurance = new Insurance();
             int key = 1;
@@ -43,8 +45,6 @@ public class InsuranceRepository {
                 insuranceResult.put(key, insuranceRep.getInsurances(insurance));
                 key++;
             }
-            stmnt.close();
-            conn.close();
 
         } catch (SQLException ex) {
             try {
@@ -54,20 +54,42 @@ public class InsuranceRepository {
             }
             ex.printStackTrace();
 
+        } finally {
+            try {
+                if (rs != null && !rs.isClosed()) {
+                    rs.close();
+                }
+            } catch (SQLException e) { // ignore
+            }
+
+            try {
+                if (stmnt != null && !stmnt.isClosed()) {
+                    stmnt.close();
+                }
+            } catch (SQLException e) { // ignore
+            }
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) { // ignore
+            }
         }
         return insuranceResult;
     }
 
     public Insurance getInsurances(Insurance insurance) {
 
+        ResultSet rs = null;
+        PreparedStatement stmnt = null;
+        Connection conn = null;
         try {
             OracleDriver driver = new OracleDriver();
             DriverManager.registerDriver(driver);
             conn = DriverManager.getConnection(connectString, "EEDEV", "EEDEV");
-            PreparedStatement stmnt = conn
-                    .prepareStatement("select id , name , createdDate from Insurance where id = ?");
+            stmnt = conn.prepareStatement("select id , name , createdDate from Insurance where id = ?");
             stmnt.setInt(1, insurance.getId());
-            ResultSet rs = stmnt.executeQuery();
+            rs = stmnt.executeQuery();
 
             while (rs.next()) {
 
@@ -76,8 +98,6 @@ public class InsuranceRepository {
                 insurance.setCreatedDate(rs.getDate("createdDate"));
 
             }
-            stmnt.close();
-            conn.close();
 
         } catch (SQLException ex) {
             try {
@@ -87,17 +107,39 @@ public class InsuranceRepository {
             }
             ex.printStackTrace();
 
+        } finally {
+            try {
+                if (rs != null && !rs.isClosed()) {
+                    rs.close();
+                }
+            } catch (SQLException e) { // ignore
+            }
+
+            try {
+                if (stmnt != null && !stmnt.isClosed()) {
+                    stmnt.close();
+                }
+            } catch (SQLException e) { // ignore
+            }
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) { // ignore
+            }
         }
         return insurance;
     }
 
     public Insurance addInsurance(Insurance insurance) throws ParseException {
+        ResultSet rs = null;
+        PreparedStatement stmnt = null;
+        Connection conn = null;
         try {
             OracleDriver driver = new OracleDriver();
             DriverManager.registerDriver(driver);
             conn = DriverManager.getConnection(connectString, "EEDEV", "EEDEV");
-            PreparedStatement stmnt = conn
-                    .prepareStatement("insert into Insurance(id , name , createdDate) values (?,?,?) ");
+            stmnt = conn.prepareStatement("insert into Insurance(id , name , createdDate) values (?,?,?) ");
 
             java.util.Date createdDate = insurance.getCreatedDate();
 
@@ -105,63 +147,97 @@ public class InsuranceRepository {
             stmnt.setString(2, insurance.getName());
             stmnt.setDate(3, new java.sql.Date(createdDate.getTime()));
             stmnt.execute();
-            stmnt.close();
-            conn.close();
 
             InsuranceRepository insuranceRep = new InsuranceRepository();
             insurance = insuranceRep.getInsurances(insurance);
 
         } catch (SQLException ex) {
-            try {
-                conn.rollback();
-            } catch (SQLException f) {
-                f.printStackTrace();
-            }
             ex.printStackTrace();
+        } finally {
+            try {
+                if (rs != null && !rs.isClosed()) {
+                    rs.close();
+                }
+            } catch (SQLException e) { // ignore
+            }
+
+            try {
+                if (stmnt != null && !stmnt.isClosed()) {
+                    stmnt.close();
+                }
+            } catch (SQLException e) { // ignore
+            }
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) { // ignore
+            }
 
         }
+
         return insurance;
 
     }
 
     public void deleteInsurance(Insurance insurance) {
-
+        ResultSet rs = null;
+        PreparedStatement stmnt = null;
+        Connection conn = null;
         try {
 
             OracleDriver driver = new OracleDriver();
             DriverManager.registerDriver(driver);
             conn = DriverManager.getConnection(connectString, "EEDEV", "EEDEV");
-            PreparedStatement stmnt = conn.prepareStatement("delete from Insurance where id=?");
+            stmnt = conn.prepareStatement("delete from Insurance where id=?");
             stmnt.setInt(1, insurance.getId());
             int row = stmnt.executeUpdate();
             System.out.println(row);
-            stmnt.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
-                conn.close();
-            } catch (Exception e) {
-                e.printStackTrace();
+                if (rs != null && !rs.isClosed()) {
+                    rs.close();
+                }
+            } catch (SQLException e) { // ignore
             }
+
+            try {
+                if (stmnt != null && !stmnt.isClosed()) {
+                    stmnt.close();
+                }
+            } catch (SQLException e) { // ignore
+            }
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) { // ignore
+            }
+
         }
     }
 
     public Insurance updateInsurance(int personId, Insurance insurance) throws ParseException {
+        ResultSet rs = null;
+        PreparedStatement stmnt4 = null;
+        Connection conn = null;
+
         try {
 
             OracleDriver driver = new OracleDriver();
             DriverManager.registerDriver(driver);
             conn = DriverManager.getConnection(connectString, "EEDEV", "EEDEV");
 
-            PreparedStatement stmnt4 = conn
-                    .prepareStatement(" Update Insurance Set name = ?, createdDate = ? Where id = ?");
+            stmnt4 = conn.prepareStatement(" Update Insurance Set name = ? Where id = ?");
             // SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            java.util.Date createdDate = insurance.getCreatedDate();
+            //java.util.Date createdDate = insurance.getCreatedDate();
 
             stmnt4.setString(1, insurance.getName());
-            stmnt4.setDate(2, new java.sql.Date(createdDate.getTime()));
-            stmnt4.setInt(3, insurance.getId());
+
+            stmnt4.setInt(2, insurance.getId());
             int row = stmnt4.executeUpdate();
             System.out.println(row);
 
@@ -170,6 +246,27 @@ public class InsuranceRepository {
 
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            try {
+                if (rs != null && !rs.isClosed()) {
+                    rs.close();
+                }
+            } catch (SQLException e) { // ignore
+            }
+
+            try {
+                if (stmnt4 != null && !stmnt4.isClosed()) {
+                    stmnt4.close();
+                }
+            } catch (SQLException e) { // ignore
+            }
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) { // ignore
+            }
+
         }
         return insurance;
     }

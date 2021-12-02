@@ -4,10 +4,8 @@ import java.text.ParseException;
 import java.util.Map;
 
 import com.home.restful.entity.Insurance;
-import com.home.restful.entity.Person;
 import com.home.restful.exception.DataNotFoundException;
 import com.home.restful.repository.InsuranceRepository;
-import com.home.restful.repository.PersonRepository;
 
 /**
  * This class is serviceImpl class. Normally this class should implement service interface and implement the
@@ -51,17 +49,23 @@ public class InsuranceService {
 
     }
 
-    public Insurance updateInsurance(int personId, Insurance insurance) throws ParseException {
-        Person person = new Person();
-        person.setId(personId);
-        Person tempPerson = new PersonRepository().getPerson(person);
-        if (tempPerson != null /* && tempPerson.getInsurances().get(insurance.getId()) != null */) {
-            // Insurance tempInsurance = tempPerson.getInsurances().get(insurance.getId());
-            // insurance.setCreatedDate(tempInsurance.getCreatedDate());
-            return repository.updateInsurance(personId, insurance);
-        } else {
-            throw new DataNotFoundException("Person with id " + tempPerson.getId() + " not found");
-
+    public Insurance updateInsurance(int insuranceId, Insurance insurance) {
+        // Person person = new Person();
+        insurance.setId(insuranceId);
+        Insurance tempInsurance = new Insurance();
+        tempInsurance.setId(insuranceId);
+        repository.getInsurances(tempInsurance);
+        System.out.println(tempInsurance);
+        if (tempInsurance != null) {
+            try {
+                insurance = repository.updateInsurance(insuranceId, insurance);
+            } catch (ParseException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
         }
+
+        return insurance;
+
     }
 }
